@@ -1,3 +1,4 @@
+//Importing all the required node packages
 var request = require('request');
 var Twitter = require('twitter');
 var spotify = require('spotify');
@@ -50,9 +51,11 @@ function myTweets() {
 // 	   * If no song is provided then your program will default to
 // 		    "The Sign" by Ace of Base
 function spotifyThisSong() {
+    //Spotify's "The Sign" by Ace of Base if no command parameter is provided
     if (commandParameter === undefined) {
         commandParameter = 'The Sign by Ace of Base';
     }
+    //Searches Spotify
     spotify.search({ type: 'track', query: commandParameter }, function(err, data) {
 
         if (err) {
@@ -82,12 +85,14 @@ function spotifyThisSong() {
 //movie-this Function
 function movieThis() {
     var movieTitle;
+    //Default to movie Mr Nobody is command parameter is not provided
     if (commandParameter === undefined) {
         movieTitle = 'Mr+Nobody';
     } else {
+        //Uses Regex to replace sepcial chars with a plus
         movieTitle = commandParameter.replace(/[^a-zA-Z0-9]/g, '+');
     }
-    // Then run a request to the OMDB API with the movie specified 
+    // Run a request to the OMDB API with the movie specified 
     var queryUrl = 'http://www.omdbapi.com/?t=' + movieTitle + '&i=&&plot=short&r=json&tomatoes=true';
 
     request(queryUrl, function(error, response, body) {
@@ -109,7 +114,7 @@ function movieThis() {
         }
     });
 }
-
+//Do What it says Function. Reads the random.txt file and retreives the data contents to be used in te CLI
 function doWhatItSays() {
     fs.readFile('random.txt', 'utf8', function(err, data) {
         if (err) {
